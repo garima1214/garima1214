@@ -1,21 +1,23 @@
 class Solution {
 public:
 
-void permuterecursive(vector<int> & nums , int begin , vector<vector<int>> & result)
-{
-    if(begin>=nums.size())
-    result.push_back(nums);
+vector<vector<int>> ans;
 
-    for(int i=begin;i<nums.size();i++)
+void perm (vector<int>&nums ,int i)
+{
+    if(i==nums.size())
+    ans.push_back(nums);
+
+  
+    for(int j=i;j<nums.size();j++)
     {
-        swap(nums[begin],nums[i]);
-        permuterecursive(nums,begin+1,result);
-        swap(nums[begin],nums[i]);
+        swap(nums[i],nums[j]);
+        perm(nums,i+1);
+        swap(nums[i],nums[j]);
     }
 }
     vector<vector<int>> permute(vector<int>& nums) {
-        vector<vector<int>> result;
-        permuterecursive(nums,0,result);
-        return result;
+        perm(nums,0);
+        return ans ;
     }
 };
