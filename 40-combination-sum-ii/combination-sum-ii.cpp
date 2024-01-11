@@ -2,14 +2,14 @@ class Solution {
 public:
  vector<vector<int>> ans;
 
- void help(vector<int>& c, int t,vector<int> &temp,int i,int sum)
+ void help(vector<int>& c, int t,vector<int> &temp,int i)
  {
-    if(t==sum)
+    if(t==0)
     {
         ans.push_back(temp);
         return;
     }
-    if(t<sum)
+    if(t<0)
     {
         return;
     }
@@ -22,22 +22,22 @@ public:
     
    //ith pick
     temp.push_back(c[i]);
-   sum = sum+c[i];
+
    
 
-    help(c,t,temp,i+1,sum);
+    help(c,t-c[i],temp,i+1);
 
     temp.pop_back();
-    sum =sum-c[i];
+
     //ith ignore
   while(i+1<c.size() && c[i]==c[i+1] ) i++;
-    help(c,t,temp,i+1,sum);
+    help(c,t,temp,i+1);
 
  }
     vector<vector<int>> combinationSum2(vector<int>& c, int t) {
         vector<int> temp;
         sort(c.begin(),c.end());
-        help(c,t,temp,0,0);
+        help(c,t,temp,0);
         return ans;
     }
 };
